@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
 
 const connectDB = () => {
-    mongoose.connect("mongodb+srv://newsapp:newsapp@cluster0.xsicxsz.mongodb.net/", {
+    mongoose.connect(process.env.MONGO_DB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
         .then((conn) => {
-            console.log(`Server Connected ${conn.connection.host}`.cyan.bold)
+            console.log(`Server Connected to ${conn.connection.host}`.cyan.bold);
         })
         .catch((error) => {
-            console.log(`Server Not Connected ${conn.connection.host}`.red.underline.bold)
-        })
-}
+            console.error(`Server Not Connected. Error: ${error.message}`.red.underline.bold);
+        });
+};
 
-export default connectDB
+export default connectDB;
