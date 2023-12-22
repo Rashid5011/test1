@@ -31,6 +31,7 @@ import { Ads, GetAds } from "../Controllers/AdsController.js";
 import { GetLiveStream, LiveStream } from "../Controllers/LiveController.js";
 import { GetComment, OnComment } from "../Controllers/CommentController.js";
 import { GetPoll, OnPoll } from "../Controllers/PollController.js";
+import { getAllNews, uploadNews } from "../Controllers/FlashNewsController.js";
 
 const route = express.Router();
 
@@ -55,6 +56,7 @@ route
   .get(ArticleContentGet)
   .delete(ArticleContentDelete);
 route.route("/ads").get(GetAds).post(Ads);
+route.route("/flashnews").post(uploadNews).get(getAllNews);
 route.route("/live").get(GetLiveStream).post(LiveStream);
 route.route("/comment").get(GetComment).post(OnComment);
 route.route("/poll").get(GetPoll).post(OnPoll);
