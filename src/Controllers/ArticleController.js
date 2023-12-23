@@ -126,7 +126,7 @@ const getArticle = (req, res) => {
         // Use $gte and $lte for date range filtering
         obj.date = { $gte: dateRange[0], $lte: dateRange[1] };
       } else {
-        console.error('Invalid date range format. Using default date range.');
+        // console.error('Invalid date range format. Using default date range.');
         // Handle the case where date range is not in the expected format
         // You can set default values or throw an error, depending on your requirements
       }
@@ -176,16 +176,17 @@ const getArticle = (req, res) => {
 
 
 
+
 const DeleteArticle = (req, res) => {
   const { id } = req.query;
-  console.log(id);
+  // console.log(id);
   Article.findByIdAndDelete({ _id: id }).then((data) => {
     responseHandler(res, data);
   });
 };
 const ReportArticle = (req, res) => {
   const { adminId, userId, question, articleId } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   Report.create({ adminId, userId, articleId, question })
     .then(async (data) => {
       await Article.findByIdAndUpdate(
@@ -277,8 +278,8 @@ const PostArticle = async (req, res) => {
     });
 };
 const imageUpload = async (req, res) => {
-  console.log(req.body, "ff");
-  console.log(req.file ? req.file : null);
+  // console.log(req.body, "ff");
+  // console.log(req.file ? req.file : null);
   const metadata = {
     contentType: req.file.mimetype,
   };
@@ -286,11 +287,11 @@ const imageUpload = async (req, res) => {
     Storage,
     `uploads/${req.file.fieldname + "_" + Date.now()}`
   );
-  console.log(storageRef);
+  // console.log(storageRef);
   //     const bytes = new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x2c, 0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x21]);
   await uploadBytesResumable(storageRef, req.file.buffer, metadata).then(
     (snap) => {
-      console.log("success");
+      // console.log("success");
       getDownloadURL(storageRef).then((url) => {
         responseHandler(res, { image: url });
       });
@@ -356,7 +357,7 @@ const ArticleContentGet = (req, res) => {
 
 const createSubCategory = async (req, res) => {
   let body = req.body;
-  console.log(body);
+  // console.log(body);
   if (SubCategory && (await SubCategory.findOne({ text: body.text }))) {
     errHandler(res, "Sub Category ALready Axist", 401);
     return;
@@ -366,7 +367,7 @@ const createSubCategory = async (req, res) => {
       responseHandler(res, data);
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       errHandler(res, "Sub Category Was Not Create", 403);
     });
 };

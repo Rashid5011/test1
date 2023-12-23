@@ -64,7 +64,11 @@ const ArticleSchema = mongoose.Schema(
       type: Boolean,
       default: false,
       required: true,
-    }
+    },
+    status: {
+      type: String,
+      default: "online",
+    },
   },
   {
     timestamps: true,
