@@ -6,6 +6,7 @@ const FlashSchema = mongoose.Schema(
             type: String,
             required: false,
         },
+        _id: { type: String, required: true },
         link: {
             type: String,
             required: false,
@@ -13,6 +14,11 @@ const FlashSchema = mongoose.Schema(
         slugName: {
             type: String,
             required: false,
+        },
+        status: {
+            type: String,
+            enum: ["active", "inactive"],
+            default: "active",
         },
     },
     {

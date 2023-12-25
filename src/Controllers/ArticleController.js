@@ -233,6 +233,50 @@ const adminGetArticle = (req, res) => {
       errHandler(res, "not Found", 404);
     });
 };
+// const PostArticle = async (req, res) => {
+//   const {
+//     title,
+//     discription,
+//     topic,
+//     keyWord,
+//     language,
+//     reportedBy,
+//     publishBy,
+//     newsType,
+//     image,
+//     type,
+//     subCategory,
+//     acsses,
+//     comment
+//   } = req.body;
+//   // console.log(body);
+//   const { id } = req.params;
+//   let date = new Date();
+//   date = JSON.stringify(date).split("T")[0].split('"')[1];
+//   Article.create({
+//     UserID: id,
+//     title,
+//     discription,
+//     topic,
+//     keyWord,
+//     language,
+//     reportedBy,
+//     publishBy,
+//     newsType,
+//     image,
+//     date,
+//     type,
+//     subCategory,
+//     acsses,
+//     comment
+//   })
+//     .then((data) => {
+//       responseHandler(res, data);
+//     })
+//     .catch((err) => {
+//       errHandler(res, JSON.stringify(err), 403);
+//     });
+// };
 const PostArticle = async (req, res) => {
   const {
     title,
@@ -249,11 +293,26 @@ const PostArticle = async (req, res) => {
     acsses,
     comment
   } = req.body;
-  // console.log(body);
+
   const { id } = req.params;
   let date = new Date();
   date = JSON.stringify(date).split("T")[0].split('"')[1];
+
+  // Set the default _id prefix
+  let idPrefix = "LOK";
+
+  // Customize _id based on newsType
+  if (newsType === "breakingNews") {
+    idPrefix += "BR";
+  } else if (newsType === "topStories") {
+    idPrefix += "TS";
+  }
+
+  // Append the rest of the _id
+  const customId = idPrefix + id;
+
   Article.create({
+    _id: customId, // Use the customized _id
     UserID: id,
     title,
     discription,
@@ -277,6 +336,7 @@ const PostArticle = async (req, res) => {
       errHandler(res, JSON.stringify(err), 403);
     });
 };
+
 const imageUpload = async (req, res) => {
   // console.log(req.body, "ff");
   // console.log(req.file ? req.file : null);
