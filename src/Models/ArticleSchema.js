@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ObjectId } from 'mongodb';
 
 const ArticleSchema = mongoose.Schema(
   {
@@ -6,7 +7,10 @@ const ArticleSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    _id: { type: String, required: true },
+    _id: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -75,6 +79,7 @@ const ArticleSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
 
 const ReportSchema = mongoose.Schema({
   adminId: {

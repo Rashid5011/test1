@@ -8,6 +8,8 @@ import { User } from "../Models/UserSchema.js";
 import { errHandler, responseHandler } from "../helper/response.js";
 import { Storage } from "../Config/firebase.config.js";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { ObjectId } from 'mongodb';
+
 
 // const getArticle = (req, res) => {
 //   let {
@@ -95,6 +97,7 @@ const getArticle = (req, res) => {
     limit,
     pagenation,
     subCategory,
+    status
   } = req.query;
 
   let obj = { approved: false };
@@ -104,6 +107,9 @@ const getArticle = (req, res) => {
   }
   if (id) {
     obj._id = id;
+  }
+  if (status) {
+    obj.status = status;
   }
   if (keyword) {
     obj.keyWord = keyword;
@@ -298,21 +304,20 @@ const PostArticle = async (req, res) => {
   let date = new Date();
   date = JSON.stringify(date).split("T")[0].split('"')[1];
 
-  // Set the default _id prefix
   let idPrefix = "LOK";
 
-  // Customize _id based on newsType
   if (newsType === "breakingNews") {
     idPrefix += "BR";
   } else if (newsType === "topStories") {
     idPrefix += "TS";
   }
 
-  // Append the rest of the _id
-  const customId = idPrefix + id;
+  const customId = idPrefix + id + Date.now();
+
+  console.log('Custom ID:', customId);
 
   Article.create({
-    _id: customId, // Use the customized _id
+    _id: customId, // Use the ObjectId as _id
     UserID: id,
     title,
     discription,
