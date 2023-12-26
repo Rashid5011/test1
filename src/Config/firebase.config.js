@@ -7,17 +7,16 @@ import { getStorage } from "firebase/storage"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB_GNpk0PaqpJfnzsT5w7MSQiCLO6155Fg",
-  authDomain: "online-ecom.firebaseapp.com",
-  projectId: "online-ecom",
-  storageBucket: "online-ecom.appspot.com",
-  messagingSenderId: "1004148070309",
-  appId: "1:1004148070309:web:139fa51f5d30d6285cfa4c",
-  measurementId: "G-DRQ147JNNH"
+  apiKey: "AIzaSyAUOPenXgKlFdmbOxCgNj9sYy6snh3iOLI",
+  authDomain: "news-a601f.firebaseapp.com",
+  projectId: "news-a601f",
+  storageBucket: "news-a601f.appspot.com",
+  messagingSenderId: "487384428633",
+  appId: "1:487384428633:web:1029c98bed0efb0b4e8148",
+  measurementId: "G-GDESPE4Q42"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const Storage = getStorage(app)
 
-export {Storage}
+export { Storage }
